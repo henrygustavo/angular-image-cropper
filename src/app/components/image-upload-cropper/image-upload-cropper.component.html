@@ -1,0 +1,37 @@
+<div class="container">
+
+  <div class="left-side">
+
+    <div class="upload-drop-zone" appDragDropImage (dropHandler)="dropHandlerEvent($event)">
+      <p> Drop a file here to Upload OR choose file.</p>
+      <div>
+        <label class="fileContainer">
+          Choose File
+          <input type="file" (change)="fileChangeEvent($event)" />
+        </label>
+      </div>
+    </div>
+    <div class="error-zone"> 
+      {{ errorMessage}}
+    </div>
+    <div class="button-zone">
+      <button (click)="onCancelEvent()">Cancel</button>
+      <button *ngIf="wasImageUploaded" (click)="onSaveEvent()">Save</button>
+    </div>
+  </div>
+
+  <div class="right-side">
+
+    <div class="image-zone">
+      <app-image-cropper *ngIf="wasImageUploaded"  [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="maintainAspectRatio" [resizeToWidth]="resizeToWidth"
+        format="format" (imageCropped)="imageCroppedEvent($event)" (loadImageFailed)="onLoadImageFailedEvent($event)" >
+      </app-image-cropper>
+    </div>
+    <div *ngIf="wasImageUploaded" class="image-preview">
+      <div>
+        <h3>Preview</h3>
+        <img [src]="croppedImage" />
+      </div>
+    </div>
+  </div>
+</div>
